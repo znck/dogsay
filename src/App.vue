@@ -117,7 +117,8 @@ export default {
       class="flex-shrink-0 h-full w-screen lg:w-3/4 flex flex-col items-center justify-center px-8 lg:px-16"
     >
       <h1 class="text-6xl text-center">
-        Welcome to <strong>DogSay!</strong>
+        Welcome to <strong>DogSay!</strong><br />
+        <span class="text-xs lg:hidden">(swipe left)</span>
       </h1>
     </div>
     <div
