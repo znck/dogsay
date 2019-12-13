@@ -152,7 +152,9 @@ export default {
 </template>
 
 <style>
+/*! purgecss start ignore */
 @tailwind base;
+/*! purgecss end ignore */
 @tailwind components;
 @tailwind utilities;
 
