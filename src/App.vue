@@ -12,7 +12,11 @@ export default {
   },
   async created() {
     /* Fetch Dogs (Initial Load) */
-    this.dogs = await this.getDogPhotos()
+    try {
+      this.dogs = await this.getDogPhotos()
+    } catch (error) {
+      this.error = error.message
+    }
   },
   /* Infinite Loading */
   mounted() {
@@ -21,15 +25,19 @@ export default {
         const [placeholder] = entries
 
         if (placeholder.isIntersecting) {
-          if (this.fetchPromise) return // already fetching.
+          if (this.activePromise) return // already fetching.
 
-          this.fetchPromise = this.getDogPhotos()
+          this.activePromise = this.getDogPhotos()
 
-          const dogs = await this.fetchPromise
+          try {
+            const dogs = await this.activePromise
+            this.error = null
+            this.dogs.push(...dogs)
+          } catch (error) {
+            this.error = error.message
+          }
 
-          this.dogs.push(...dogs)
-
-          this.fetchPromise = null
+          this.activePromise = null
         }
       },
       {
@@ -53,12 +61,10 @@ export default {
       if (response.ok) {
         const { message: images } = await response.json()
 
-        this.error = null
-
         return images
       }
 
-      this.error = response.statusText
+      throw new Error(response.statusText)
     },
 
     getQuote(id) {

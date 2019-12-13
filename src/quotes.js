@@ -1,3 +1,4 @@
+// Source: https://www.mydogsname.com/funny-dog-quotes/
 const quotes = [
   'A dog can express more with his tail in minutes than his owner can express with his tongue in hours.',
   'Beware! Dog can’t hold its licker.',
@@ -8,7 +9,7 @@ const quotes = [
   'Every snack you make, every meal you bake, every bite you take…I’ll be watching you.',
   'Handle every situation like a dog. If you can’t eat it or play with it, just pee on it and walk away.',
   'I am one dog short of crazy.',
-  'I don’t who care who dies in the movie, as long as the dog lives.',
+  'I don’t care who dies in the movie, as long as the dog lives.',
   'I feel sorry for people who don’t have dogs. I hear they have to pick up food they drop on the floor.',
   'I work hard so my dog can have a better life.',
   'If aliens saw us walking our dogs and picking up their poop, who would they think is in charge?',
