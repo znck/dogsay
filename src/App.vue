@@ -126,6 +126,10 @@ export default {
         Welcome to <strong>DogSay!</strong><br />
         <span class="text-xs lg:hidden">(swipe left)</span>
       </h1>
+
+      <footer class="my-8 text-xs">
+        <a href="https://github.com/znck/dogsay">Source on Github</a>
+      </footer>
     </div>
     <div
       class="flex-shrink-0 h-full w-screen lg:w-1/2 flex flex-col items-center justify-end px-8 lg:px-16"
