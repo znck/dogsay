@@ -1,116 +1,26 @@
 <script>
-import quotes from './quotes'
+import { getDogPhotos, useInfiniteLoader, usePreLoadImage, getQuote, getAFont, scrollIntoView } from './composables'
+
+{
+  
+}
 
 export default {
-  data() {
-    return {
-      /* Fetch Dogs */
-      error: null,
-      /* Pre-load Dogs */
-      dogs: [],
-    }
-  },
-  async created() {
-    /* Fetch Dogs (Initial Load) */
-    try {
-      this.dogs = await this.getDogPhotos()
-    } catch (error) {
-      this.error = error.message
-    }
-  },
-  /* Infinite Loading */
-  mounted() {
-    this.observer = new IntersectionObserver(
-      async entries => {
-        const [placeholder] = entries
-
-        if (placeholder.isIntersecting) {
-          if (this.activePromise) return // already fetching.
-
-          this.activePromise = this.getDogPhotos()
-
-          try {
-            const dogs = await this.activePromise
-            this.error = null
-            this.dogs.push(...dogs)
-          } catch (error) {
-            this.error = error.message
-          }
-
-          this.activePromise = null
-        }
-      },
-      {
-        threshold: 0,
-      }
+  setup(_, { refs }) {
+    const { items, error } = useInfiniteLoader(
+      getDogPhotos,
+      () => refs.placeholder
     )
 
-    this.observer.observe(this.$refs.placeholder)
-  },
-  /* Infinite Loading */
-  destroyed() {
-    this.observer.disconnect()
-  },
-  methods: {
-    /* Fetch Dogs */
-    async getDogPhotos() {
-      const response = await fetch(
-        `https://dog.ceo/api/breeds/image/random/3?q=${Date.now()}`
-      )
+    usePreLoadImage(items)
 
-      if (response.ok) {
-        const { message: images } = await response.json()
-
-        return images
-      }
-
-      throw new Error(response.statusText)
-    },
-
-    getQuote(id) {
-      return quotes[id % quotes.length]
-    },
-
-    getAFont(id) {
-      const fonts = [
-        'Indie Flower',
-        'Dancing Script',
-        'Lilita One',
-        'Pacifico',
-        'Lakki Reddy',
-        'Shadows Into Light',
-        'Amatic SC',
-        'Permanent Marker',
-        'Sacramento',
-        'Mansalva',
-        'Special Elite',
-        'Parisienne',
-        'Reenie Beanie',
-        'Rock Salt',
-      ]
-
-      return `${fonts[id % fonts.length]}, cursive`
-    },
-
-    scrollIntoView({ target }) {
-      target.scrollIntoView({ behavior: 'smooth', inline: 'center' })
-    },
-  },
-  watch: {
-    /* Pre-load Dogs */
-    dogs(newDogs, oldDogs) {
-      const packOfDogs = new Set(newDogs)
-
-      if (Array.isArray(oldDogs)) {
-        oldDogs.forEach(dog => packOfDogs.delete(dog))
-      }
-
-      Array.from(packOfDogs).forEach(dog => {
-        const img = new Image()
-
-        img.src = dog
-      })
-    },
+    return {
+      dogs: items,
+      error,
+      getQuote,
+      getAFont,
+      scrollIntoView,
+    }
   },
 }
 </script>
