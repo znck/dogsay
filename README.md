@@ -1,24 +1,9 @@
-# head-first-into-vue-composition-api
+# DogSay
 
-## Project setup
-```
-pnpm install
-```
+DogSay is a demo application used as a target for refactoring this object API implementation to use composition API.
 
-### Compiles and hot-reloads for development
-```
-pnpm run serve
-```
+This implementation uses object API. See [master branch](https://github.com/znck/dogsay/tree/next) for the implementation using composition API.
 
-### Compiles and minifies for production
-```
-pnpm run build
-```
+--------------------
 
-### Lints and fixes files
-```
-pnpm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Find slides and recordings on [my website](https://znck.me/speaks#Head-first-into-Composition-API).
